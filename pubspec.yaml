@@ -6,4 +6,5 @@ homepage: https://github.com/google/librato.dart
 dependencies:
   crypto: '>=0.9.0 <0.10.0'
 dev_dependencies:
-  unittest: any
+  grinder: ^0.7.0
+  test: ^0.12.0
