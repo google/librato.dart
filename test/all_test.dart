@@ -5,7 +5,7 @@
 library librato.test;
 
 //import 'package:librato/librato.dart';
-import 'package:unittest/unittest.dart';
+import 'package:test/test.dart';
 
 main() {
   group('librato', () {
