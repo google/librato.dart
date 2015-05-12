@@ -1,5 +1,7 @@
 # librato
 
+[![Build Status](https://travis-ci.org/google/librato.dart.svg)](https://travis-ci.org/google/librato.dart)
+
 A [Dart][dart] library to upload metrics data to
 [librato.com](https://metrics.librato.com).
 
