@@ -22,10 +22,8 @@ void main(List<String> args) {
     String commit = new math.Random().nextInt(0x7fffffff).toRadixString(16);
     LibratoLink link = new LibratoLink(
         'github', 'https://github.com/foo/bar/commit/${commit}');
-    LibratoAnnotation annotation = new LibratoAnnotation(
-        commit,
-        description: 'Build triggered from commit ${commit}',
-        links: [link]);
+    LibratoAnnotation annotation = new LibratoAnnotation(commit,
+        description: 'Build triggered from commit ${commit}', links: [link]);
     librato.createAnnotation('builds', annotation).then((_) {
       print('Sent ${annotation}');
     });

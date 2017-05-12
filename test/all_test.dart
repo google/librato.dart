@@ -4,14 +4,14 @@
 
 library librato.test;
 
-//import 'package:librato/librato.dart';
+import 'package:librato/librato.dart';
 import 'package:test/test.dart';
 
 main() {
   group('librato', () {
-    test('todo', () {
-      // TODO:
-
+    test('authToken', () {
+      final Librato librato = new Librato('foo', 'bar');
+      expect(librato.authToken, 'sdsdf');
     });
   });
 }

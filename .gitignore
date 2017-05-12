@@ -7,3 +7,4 @@ build/
 .buildlog
 .pub/
 .settings/
+.packages

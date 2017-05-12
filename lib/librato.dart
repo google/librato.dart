@@ -12,8 +12,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:crypto/crypto.dart';
-
 /**
  * A class used to send statistical data to the
  * [Librato](https://metrics.librato.com) service.
@@ -39,22 +37,25 @@ class Librato {
    * Create a new `Librato` instance. This requires the `LIBRATO_USER` and
    * `LIBRATO_TOKEN` environment variables to be set (and will throw otherwise).
    */
-  Librato.fromEnvVars() : baseUrl = BASE_URL,
-      _username = _env('LIBRATO_USER'), _password = _env('LIBRATO_TOKEN');
+  Librato.fromEnvVars()
+      : baseUrl = BASE_URL,
+        _username = _env('LIBRATO_USER'),
+        _password = _env('LIBRATO_TOKEN');
 
   /**
    * Record a set of statistics.
    */
   Future postStats(List<LibratoStat> stats) {
     // { "gauges": [ {...}, {...} ] }
-    var statsList = stats.map((stat) => stat._toMap()).toList();;
-    Map m = { 'gauges': statsList };
+    var statsList = stats.map((stat) => stat._toMap()).toList();
+    ;
+    Map m = {'gauges': statsList};
     String data = JSON.encode(m);
 
     String url = '${baseUrl}/metrics';
     HttpClient client = new HttpClient();
     return client.postUrl(Uri.parse(url)).then((HttpClientRequest request) {
-      request.headers.set('authorization', "Basic ${_authToken}");
+      request.headers.set('authorization', "Basic ${authToken}");
       request.headers.contentType = ContentType.JSON;
       request.write(data);
       return request.close();
@@ -73,7 +74,7 @@ class Librato {
     String url = '${baseUrl}/annotations/${name}';
     HttpClient client = new HttpClient();
     return client.postUrl(Uri.parse(url)).then((HttpClientRequest request) {
-      request.headers.set('authorization', "Basic ${_authToken}");
+      request.headers.set('authorization', "Basic ${authToken}");
       request.headers.contentType = ContentType.JSON;
       request.write(data);
       return request.close();
@@ -82,8 +83,8 @@ class Librato {
     });
   }
 
-  String get _authToken => CryptoUtils.bytesToBase64(
-      UTF8.encode("${_username}:${_password}"));
+  String get authToken =>
+      BASE64.encode(UTF8.encode("${_username}:${_password}"));
 }
 
 /**
@@ -91,9 +92,8 @@ class Librato {
  */
 Future _convertResponse(HttpClientResponse response) {
   return response.toList().then((List<List<int>> data) {
-    String str = data.isEmpty
-        ? ''
-        : UTF8.decode(data.reduce((a, b) => a.addAll(b)));
+    String str =
+        data.isEmpty ? '' : UTF8.decode(data.reduce((a, b) => a.addAll(b)));
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
       return str;
@@ -156,7 +156,7 @@ class LibratoAnnotation {
   LibratoAnnotation(this.title, {this.source, this.description, this.links});
 
   Map _toMap() {
-    Map m =  {'title': title};
+    Map m = {'title': title};
     if (source != null) m['source'] = source;
     if (description != null) m['description'] = description;
     if (links != null) m['links'] = links.map((link) => link._toMap()).toList();
@@ -186,7 +186,7 @@ class LibratoLink {
   LibratoLink(this.rel, this.href, {this.label});
 
   Map _toMap() {
-    Map m =  {'rel': rel, 'href': href};
+    Map m = {'rel': rel, 'href': href};
     if (label != null) m['label'] = label;
     return m;
   }
