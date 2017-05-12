@@ -11,7 +11,7 @@ main() {
   group('librato', () {
     test('authToken', () {
       final Librato librato = new Librato('foo', 'bar');
-      expect(librato.authToken, 'sdsdf');
+      expect(librato.authToken, 'Zm9vOmJhcg==');
     });
   });
 }
