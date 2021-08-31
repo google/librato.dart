@@ -1,6 +1,6 @@
-# librato
+# Note: This project is no longer active
 
-[![Build Status](https://travis-ci.org/google/librato.dart.svg)](https://travis-ci.org/google/librato.dart)
+## librato
 
 A [Dart][dart] library to upload metrics data to
 [librato.com](https://metrics.librato.com).
