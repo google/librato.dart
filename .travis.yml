@@ -1,3 +1,0 @@
-language: dart
-script: dart -c tool/grind.dart
-sudo: false
